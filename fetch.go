@@ -12,10 +12,12 @@ import (
 
 func main() {
 	for _, url := range os.Args[1:] {
-		pref := "http://"
-		if !strings.HasPrefix(url, pref) {
-			url = pref + url
+		pref1 := "http://"
+		pref2 := "https://"
+		if strings.HasPrefix(url, pref2) == false && strings.HasPrefix(url, pref1) == false {
+			url = pref1 + url
 		}
+
 		resp, err := http.Get(url)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "%s\n", err)
