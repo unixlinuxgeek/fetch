@@ -7,10 +7,15 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strings"
 )
 
 func main() {
 	for _, url := range os.Args[1:] {
+		pref := "http://"
+		if !strings.HasPrefix(url, pref) {
+			url = pref + url
+		}
 		resp, err := http.Get(url)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "%s\n", err)
