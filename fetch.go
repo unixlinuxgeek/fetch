@@ -4,7 +4,7 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 )
@@ -16,7 +16,8 @@ func main() {
 			fmt.Fprintf(os.Stderr, "%s\n", err)
 			os.Exit(1)
 		}
-		b, err := ioutil.ReadAll(resp.Body)
+		// b, err := ioutil.ReadAll(resp.Body) / deprecated
+		b, err := io.ReadAll(resp.Body)
 		resp.Body.Close()
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "fetch: чтение %s: %v\n", url, err)
@@ -25,4 +26,3 @@ func main() {
 		fmt.Printf("%s", b)
 	}
 }
-
